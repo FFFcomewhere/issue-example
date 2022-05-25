@@ -32,3 +32,6 @@
 # ./kafka-console-consumer.sh  --bootstrap-server kafka:9092  --topic looklook-log   --from-beginning
 # 命令生产
 # ./kafka-console-producer.sh --bootstrap-server kafka:9092 --topic second
+
+#protoc 生成 在rpc文件夹下
+#goctl rpc protoc builder/user.proto --go_out=./types --go-grpc_out=./types --zrpc_out=.

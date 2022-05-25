@@ -19,6 +19,7 @@ create table `user` (
     unique key `idx_username` (`username`)
 ) engine = InnoDB  default charset = utf8mb4 collate = utf8mb4_general_ci comment = '用户表';
 
-insert into  `user` (mobile, username, password) value ('123456781', 'fzj', 'password');
-insert into  `user` (mobile, username, password) value ('123456782','hyb', 'password');
-insert into  `user` (mobile, username, password) value ('123456783','wsj', 'password');
+# 密码加密过　明文密码是password
+insert into  `user` (mobile, username, password) value ('123456781', 'fzj', '5f4dcc3b5aa765d61d8327deb882cf99');
+insert into  `user` (mobile, username, password) value ('123456782','hyb', '5f4dcc3b5aa765d61d8327deb882cf99');
+insert into  `user` (mobile, username, password) value ('123456783','wsj', '5f4dcc3b5aa765d61d8327deb882cf99');

@@ -9,7 +9,7 @@ info(
 
 type UserInfo {
 	Userid   int64  `json:"userid"`
-	mobile string 	`json:"mobile"`
+	Mobile   string `json:"mobile"`
 	Username string `json:"username"`
 	Password string `json:"password"`
 }
@@ -43,17 +43,16 @@ type (
 type (
 	GetUserInfoReq {
 		Userid   int64  `json:"userid"`
-		mobile   string `json:"mobile"`
+		Mobile   string `json:"mobile"`
 		Username string `json:"username"`
 	}
 
 	GetUserInfoResp {
 		Userid   int64  `json:"userid"`
-		mobile   string `json:"mobile"`
+		Mobile   string `json:"mobile"`
 		Username string `json:"username"`
 	}
 )
-
 
 //无需登录
 @server(
