@@ -1,0 +1,50 @@
+syntax = "v1"
+
+import (
+    "issue.api"
+)
+
+info(
+    title: "里程碑模块"
+    desc: "里程碑模块，负责容纳多个提案"
+    author: "方兆俊"
+    data: "2022-05-25"
+)
+
+type MilestoneInfo {
+    Milestoneid int64 `json:"milestoneid"`
+    Name string `json:"name"`
+    UpdateTime    string `json:"updateTime"`
+}
+
+type (
+    MilestoneReq {
+        Page int64 `json:"page"` 				//页码
+        PageSize    int64 `json:"pageSize"`    //当前页面显示的milestone数量
+    }
+
+    MilestoneResp {
+        List []MilestoneInfo `json:"list"`
+    }
+)
+
+type (
+    MilestoneNewReq {
+        Name string `json:"name"`
+    }
+
+    MilestoneNewResp {
+    }
+)
+
+type (
+    MilestoneSignalReq {
+        Milestoneid string `json:"milestoneid"`
+        ReName string `json:"reName"`
+        IfDelete bool `json:"ifDelete"`
+    }
+    
+    MilestoneSignalResp {
+        IssueList []IssueInfo `json:"issueList"`
+    }
+)

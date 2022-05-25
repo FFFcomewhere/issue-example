@@ -1,0 +1,44 @@
+syntax = "v1"
+
+info(
+    title: "里程碑模块"
+    desc: "里程碑模块，负责容纳多个提案"
+    author: "方兆俊"
+    data: "2022-05-25"
+)
+
+type TagInfo {
+    Tagid int64 `json:"Tagid"`
+    Name string `json:"name"`
+}
+
+type (
+    TagReq {
+        LastTagid int64 `json:"lastTagid"` //上一页最后一个标签的id
+        PageSize int64 `json:"pageSize"`  //当前页面显示标签id数
+    }
+
+    TagResp {
+        List []TagInfo `json:"list"`
+    }
+)
+
+type (
+    TagNewReq {
+        Name string `json:"name"`
+    }
+
+    TagNewResp {
+    }
+)
+
+type (
+    TagSignalReq {
+        Name string `json:"name"`
+        ReName string `json:"reName"`
+        IfDelete bool `json:"ifDelete"`
+    }
+
+    TagSignalResp {
+    }
+)

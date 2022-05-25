@@ -1,0 +1,81 @@
+syntax = "v1"
+
+info(
+	title: "用户模块"
+	desc: "用户模块"
+	author: "方兆俊"
+	data: "2022-05-25"
+)
+
+type UserInfo {
+	Userid   int64  `json:"userid"`
+	mobile string 	`json:"mobile"`
+	Username string `json:"username"`
+	Password string `json:"password"`
+}
+
+type (
+	RegisterReq {
+		Username string `json:"username"`
+		Password string `json:"password"`
+	}
+
+	RegisterResp {
+		AccessToken  string `json:"accessToken"`
+		AccessExpire int64  `json:"accessExpire"`
+		RefreshAfter int64  `json:"refreshAfter"`
+	}
+)
+
+type (
+	LoginReq {
+		Username string `json:"username"`
+		Password string `json:"password"`
+	}
+
+	LoginResp {
+		AccessToken  string `json:"accessToken"`
+		AccessExpire int64  `json:"accessExpire"`
+		RefreshAfter int64  `json:"refreshAfter"`
+	}
+)
+
+type (
+	GetUserInfoReq {
+		Userid   int64  `json:"userid"`
+		mobile   string `json:"mobile"`
+		Username string `json:"username"`
+	}
+
+	GetUserInfoResp {
+		Userid   int64  `json:"userid"`
+		mobile   string `json:"mobile"`
+		Username string `json:"username"`
+	}
+)
+
+
+//无需登录
+@server(
+	group: user
+)
+service usercenter {
+	@doc "用户注册"
+	@handler register
+	post /user/register (RegisterReq) returns (RegisterResp)
+	
+	@doc "用户登录"
+	@handler login
+	post /user/login (LoginReq) returns (LoginResp)
+}
+
+//需要登录
+@server(
+	group: user
+	jwt: JwtAuth
+)
+service usercenter {
+	@doc "获取用户信息"
+	@handler userInfo
+	post /user/info (GetUserInfoReq) returns (GetUserInfoResp)
+}

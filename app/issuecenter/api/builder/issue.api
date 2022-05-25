@@ -1,0 +1,68 @@
+syntax = "v1"
+
+info(
+	title: "提案模块"
+	desc: "提案模块，处理用户发起的提案"
+	author: "方兆俊"
+	data: "2022-05-25"
+)
+
+type IssueInfo {
+	Issueid       int64  `json:"issueid"`
+	IssueName     string `json:"issueName"`
+	UpdateTime    string `json:"updateTime"`
+	UserName      string `json:"userName"`
+	TagName       string `json:"tagName"`
+	MilestoneName string `json:"milestoneName"`
+}
+
+type CommentInfo {
+	Commentid    int64  `json:"commentid"`
+	UpdateTime   string `json:"updateTime"`
+	UserName     string `json:"userName"`
+	Content 	 string `json:"content"`
+}
+
+type (
+	IssueReq {
+		Page int64 `json:"page"` 				//页码
+		PageSize    int64 `json:"pageSize"`    //当前页面显示的issue数量
+	}
+
+	IssueResp {
+		List []IssueInfo `json:"list"`
+	}
+)
+
+type (
+	IssueNewReq {
+		Name          string `json:"name"`
+		Username      string `json:"username"`
+		Tagname       string `json:"tagname"`
+		Milestonename string `json:"milestonename"`
+	}
+
+	IssueNewResp {
+	}
+)
+
+type (
+	IssueSignalReq {
+		Issueid     int64 `json:"issueid"`
+		ReName      string `json:"reName"`      //重命名标题
+		ReTag       string `json:"reTag"`       //重命名标签
+		ReMilestone string `json:"reMilestone"` //重命名里程碑
+		IfDelete    bool   `json:"ifDelete"`    //是否删除提案
+
+		AddComment      string `json:"addComment"`      //添加评论
+		DeleteCommentid int64 `json:"deleteCommentid"`  //被删除评论的id
+		UpdateCommentid int64  `json:"updateCommentid"` //被修改评论的id
+		UpdateComment   string `json:"updateComment"`   //修改评论
+	}
+
+	IssueSignalResp {
+		Issue  IssueInfo `json:"issue"` //提案信息
+		CommentList []CommentInfo `json:"commentList"` //页面显示的评论信息
+	}
+)
+

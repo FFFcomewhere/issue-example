@@ -1,0 +1,69 @@
+syntax = "v1"
+
+info(
+	title: "提案中心模块"
+	desc: "提案中心模块,负责处理提案模块，里程碑模块，标签模块三者的关系"
+	author: "方兆俊"
+	data: "2022-05-25"
+)
+
+import (
+	"issue.api"
+	"milestone.api"
+	"tag.api"
+)
+
+@server(
+	group: issue
+)
+service issuecenter {
+	@doc "按页展示提案"
+	@handler issue
+	post /issue (IssueReq) returns (IssueResp)
+	
+	@doc "创建提案"
+	@handler issuenew
+	post /issue/new (IssueNewReq) returns (IssueNewResp)
+	
+	@doc "操作单个提案/评论/设置标签或者里程碑"
+	@handler issuesignal
+	post /issue/number (IssueSignalReq) returns (IssueSignalResp)
+	
+	@doc "测试提案"
+	@handler issuetest
+	post /issue/test (IssueTestReq) returns (IssueTestResp)
+}
+
+@server(
+	group: milestone
+)
+service issuecenter {
+	@doc "按页展示里程碑"
+	@handler milestone
+	post /milestone (MilestoneReq) returns (MilestoneResp)
+	
+	@doc "创建里程碑"
+	@handler milestonenew
+	post /milestone/new (MilestoneNewReq) returns (MilestoneNewResp)
+	
+	@doc "操作单个里程碑/按里程碑显示提案"
+	@handler milestonesignal
+	post /milestone/number (MilestoneSignalReq) returns (MilestoneSignalResp)
+}
+
+@server(
+	group: tag
+)
+service issuecenter {
+	@doc "按页展示标签"
+	@handler tag
+	post /tag (TagReq) returns (TagResp)
+	
+	@doc "创建标签"
+	@handler tagnew
+	post /tag/new (TagNewReq) returns (TagNewResp)
+	
+	@doc "操作单个标签/按标签显示提案"
+	@handler tagsignal
+	post /tag/tagname (TagSignalReq) returns (TagSignalResp)
+}
