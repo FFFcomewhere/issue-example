@@ -34,6 +34,7 @@ type (
 		FindPageListByIdDESC(ctx context.Context, rowBuilder squirrel.SelectBuilder, preMinId, pageSize int64) ([]*Issue, error)
 		FindPageListByIdASC(ctx context.Context, rowBuilder squirrel.SelectBuilder, preMaxId, pageSize int64) ([]*Issue, error)
 		FindListByMilestoneid(ctx context.Context, rowBuilder squirrel.SelectBuilder, milestoneid int64, orderBy string) ([]*Issue, error)
+		FindListByTagid(ctx context.Context, rowBuilder squirrel.SelectBuilder, tagid int64, orderBy string) ([]*Issue, error)
 	}
 
 	customIssueModel struct {
@@ -235,6 +236,29 @@ func (m *defaultIssueModel) FindListByMilestoneid(ctx context.Context, rowBuilde
 	}
 
 	query, values, err := rowBuilder.Where("del_state = ? && milestoneid = ?", globalkey.DelStateNo, milestoneid).ToSql()
+	if err != nil {
+		return nil, err
+	}
+
+	var resp []*Issue
+	err = m.QueryRowsNoCacheCtx(ctx, &resp, query, values...)
+	switch err {
+	case nil:
+		return resp, nil
+	default:
+		return nil, err
+	}
+}
+
+func (m *defaultIssueModel) FindListByTagid(ctx context.Context, rowBuilder squirrel.SelectBuilder, tagid int64, orderBy string) ([]*Issue, error) {
+
+	if orderBy == "" {
+		rowBuilder = rowBuilder.OrderBy("id DESC")
+	} else {
+		rowBuilder = rowBuilder.OrderBy(orderBy)
+	}
+
+	query, values, err := rowBuilder.Where("del_state = ? && tagid = ?", globalkey.DelStateNo, tagid).ToSql()
 	if err != nil {
 		return nil, err
 	}

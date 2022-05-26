@@ -26,7 +26,7 @@ func NewMilestonesignalLogic(ctx context.Context, svcCtx *svc.ServiceContext) *M
 }
 
 func (l *MilestonesignalLogic) Milestonesignal(req *types.MilestoneSignalReq) (resp *types.MilestoneSignalResp, err error) {
-	//修改issue基本信息
+	//修改milestone基本信息
 	if req.ReName != "" {
 		err := l.updataMilestone(req)
 		if err != nil {
@@ -34,12 +34,14 @@ func (l *MilestonesignalLogic) Milestonesignal(req *types.MilestoneSignalReq) (r
 		}
 	}
 
-	//删除提案
+	//删除milestone
 	if req.IfDelete == true {
 		err := l.deleteMilestone(req)
 		if err != nil {
 			return nil, err
 		}
+		return nil, nil
+
 	}
 
 	milestone, err := l.svcCtx.MilestoneModel.FindOne(l.ctx, req.Milestoneid)

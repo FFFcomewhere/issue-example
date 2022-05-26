@@ -53,6 +53,7 @@ func (l *IssuesignalLogic) Issuesignal(req *types.IssueSignalReq) (resp *types.I
 		if err != nil {
 			return nil, err
 		}
+		return nil, nil
 	}
 
 	//添加评论

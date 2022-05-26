@@ -159,7 +159,89 @@ func TestShowSignalMilestone(t *testing.T) {
 	contentType := "application/json"
 	jsonStr := []byte(`{
 						"milestoneid" : 1,
-						"reName" : "newissue2",
+						"reName" : "newmilestone2",
+						"ifDelete": false}`)
+
+	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
+	req.Header.Add("Authorization", authorization)
+	req.Header.Add("Content-Type", contentType)
+
+	client := http.Client{}
+	resp, err := client.Do(req)
+
+	defer resp.Body.Close()
+	if err != nil {
+		fmt.Println(err)
+	}
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Println("handle error")
+	}
+
+	fmt.Println(string(body))
+}
+
+//----------------对tag模块的测试----------------------//
+//测试 新建tag
+func TestNewtag(t *testing.T) {
+	url := "http://127.0.0.1:42002/tag/new"
+	contentType := "application/json"
+	jsonStr := []byte(`{
+						"name":"tag3"}`)
+
+	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
+	req.Header.Add("Content-Type", contentType)
+
+	client := http.Client{}
+	resp, err := client.Do(req)
+
+	defer resp.Body.Close()
+	if err != nil {
+		fmt.Println(err)
+	}
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Println("handle error")
+	}
+
+	fmt.Println(string(body))
+}
+
+//测试 按页查看tag
+func TestGettagByPage(t *testing.T) {
+	url := "http://127.0.0.1:42002/tag"
+	contentType := "application/json"
+	jsonStr := []byte(`{
+						"page":1,
+						"pageSize":10}`)
+
+	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
+	req.Header.Add("Content-Type", contentType)
+
+	client := http.Client{}
+	resp, err := client.Do(req)
+
+	defer resp.Body.Close()
+	if err != nil {
+		fmt.Println(err)
+	}
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Println("handle error")
+	}
+
+	fmt.Println(string(body))
+}
+
+//测试 对单个tag进行操作
+func TestShowSignaltag(t *testing.T) {
+	url := "http://127.0.0.1:42002/tag/signal"
+	//密钥，　经过登录或者注册可以获得，有过期时间，请自行登录后填写
+	authorization := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODUwMjUyMDQsImlhdCI6MTY1MzQ4OTIwNCwiand0VXNlcklkIjo0fQ.zh0eUzFL7GFm0OAXiL6xbCKq_d3vKxLhS_e2IcNrVpw"
+	contentType := "application/json"
+	jsonStr := []byte(`{
+						"name" : "tag3",
+						"reName" : "newtag2",
 						"ifDelete": false}`)
 
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
