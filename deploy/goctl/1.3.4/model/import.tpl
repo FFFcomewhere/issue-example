@@ -5,8 +5,8 @@ import (
 	"strings"
 	{{if .time}}"time"{{end}}
 
-	"github.com/FFFcomewhere/common/xerr"
-	"github.com/FFFcomewhere/common/globalkey"
+	"github.com/FFFcomewhere/issue-example/common/xerr"
+	"github.com/FFFcomewhere/issue-example/common/globalkey"
 
 	"github.com/zeromicro/go-zero/core/stores/builder"
 	"github.com/zeromicro/go-zero/core/stores/cache"

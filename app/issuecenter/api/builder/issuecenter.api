@@ -13,6 +13,7 @@ import (
 	"tag.api"
 )
 
+//无需登录
 @server(
 	group: issue
 )
@@ -24,16 +25,20 @@ service issuecenter {
 	@doc "创建提案"
 	@handler issuenew
 	post /issue/new (IssueNewReq) returns (IssueNewResp)
-	
-	@doc "操作单个提案/评论/设置标签或者里程碑"
-	@handler issuesignal
-	post /issue/number (IssueSignalReq) returns (IssueSignalResp)
-	
-	@doc "测试提案"
-	@handler issuetest
-	post /issue/test (IssueTestReq) returns (IssueTestResp)
 }
 
+//需要登录
+@server(
+	group: issue
+	jwt: JwtAuth
+)
+service issuecenter {
+	@doc "操作单个提案,评论/设置标签或者里程碑"
+	@handler issuesignal
+	post /issue/signal (IssueSignalReq) returns (IssueSignalResp)
+}
+
+//无需登录
 @server(
 	group: milestone
 )
@@ -45,12 +50,20 @@ service issuecenter {
 	@doc "创建里程碑"
 	@handler milestonenew
 	post /milestone/new (MilestoneNewReq) returns (MilestoneNewResp)
-	
-	@doc "操作单个里程碑/按里程碑显示提案"
-	@handler milestonesignal
-	post /milestone/number (MilestoneSignalReq) returns (MilestoneSignalResp)
 }
 
+//需要登录
+@server(
+	group: milestone
+	jwt: JwtAuth
+)
+service issuecenter {
+	@doc "操作单个里程碑/按里程碑显示提案"
+	@handler milestonesignal
+	post /milestone/signal (MilestoneSignalReq) returns (MilestoneSignalResp)
+}
+
+//无需登录
 @server(
 	group: tag
 )
@@ -62,8 +75,15 @@ service issuecenter {
 	@doc "创建标签"
 	@handler tagnew
 	post /tag/new (TagNewReq) returns (TagNewResp)
-	
+}
+
+//需要登录
+@server(
+	group: tag
+	jwt: JwtAuth
+)
+service issuecenter {
 	@doc "操作单个标签/按标签显示提案"
 	@handler tagsignal
-	post /tag/tagname (TagSignalReq) returns (TagSignalResp)
+	post /tag/signal (TagSignalReq) returns (TagSignalResp)
 }

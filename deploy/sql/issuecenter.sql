@@ -4,7 +4,7 @@ set FOREIGN_KEY_CHECKS = 0;
 # comment
 drop table if exists `comment`;
 create table `comment` (
-    `commentid` bigint not null auto_increment,
+    `id` bigint not null auto_increment,
     `create_time` datetime not null default current_timestamp,
     `update_time` datetime not null default current_timestamp on update current_timestamp,
     `delete_time` datetime not null default  '1970-01-01 08:00:00',
@@ -15,7 +15,7 @@ create table `comment` (
     `userid` bigint not null  default 0 comment '评论者id',
     `content` varchar(255) not null default '' comment '评论内容',
 
-    primary key (`commentid`),
+    primary key (`id`),
     key `idx_issueid` (`issueid`)
 ) engine = InnoDB  default charset = utf8mb4 collate = utf8mb4_general_ci comment = '评论表';
 
@@ -30,7 +30,7 @@ where `issueid` > 1;
 # issue
 drop table if exists `issue`;
 create table `issue` (
-    `issueid` bigint not null auto_increment,
+    `id` bigint not null auto_increment,
     `create_time` datetime not null default current_timestamp,
     `update_time` datetime not null default current_timestamp on update current_timestamp,
     `delete_time` datetime not null default  '1970-01-01 08:00:00',
@@ -42,7 +42,7 @@ create table `issue` (
     `tagid` bigint not null default 0 comment '标签id',
     `milestoneid` bigint not null default 0 comment '里程碑id',
 
-    primary key (`issueid`),
+    primary key (`id`),
     key `idx_tagid` (`tagid`),
     key `idx_milestone` (`milestoneid`)
 ) engine = InnoDB  default charset = utf8mb4 collate = utf8mb4_general_ci comment = '提案表';
@@ -65,7 +65,7 @@ insert into  `issue` (name, userid) value ('issue13', 4);
 # milestone
 drop table if exists `milestone`;
 create table `milestone` (
-    `milestoneid` bigint not null auto_increment,
+    `id` bigint not null auto_increment,
     `create_time` datetime not null default current_timestamp,
     `update_time` datetime not null default current_timestamp on update current_timestamp,
     `delete_time` datetime not null default  '1970-01-01 08:00:00',
@@ -74,7 +74,7 @@ create table `milestone` (
 
     `name` varchar(255)  not null default '' comment '里程碑名称',
 
-    primary key (`milestoneid`),
+    primary key (`id`),
     unique key `idx_name` (`name`)
 ) engine = InnoDB  default charset = utf8mb4 collate = utf8mb4_general_ci comment = '里程碑表';
 
@@ -82,7 +82,7 @@ insert into  `milestone` (name) value ('milestone1');
 
 drop table if exists `tag`;
 create table `tag` (
-    `tagid` bigint not null auto_increment,
+    `id` bigint not null auto_increment,
     `create_time` datetime not null default current_timestamp,
     `update_time` datetime not null default current_timestamp on update current_timestamp,
     `delete_time` datetime not null default  '1970-01-01 08:00:00',
@@ -91,7 +91,7 @@ create table `tag` (
 
     `name` varchar(255) not null default '' comment '标签名称',
 
-    primary key (`tagid`),
+    primary key (`id`),
     unique key `idx_name` (`name`)
 ) engine = InnoDB  default charset = utf8mb4 collate = utf8mb4_general_ci comment = '标签表';
 

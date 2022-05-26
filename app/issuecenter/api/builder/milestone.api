@@ -1,9 +1,5 @@
 syntax = "v1"
 
-import (
-    "issue.api"
-)
-
 info(
     title: "里程碑模块"
     desc: "里程碑模块，负责容纳多个提案"
@@ -11,10 +7,19 @@ info(
     data: "2022-05-25"
 )
 
-type MilestoneInfo {
-    Milestoneid int64 `json:"milestoneid"`
-    Name string `json:"name"`
+type IssueInfo {
+    Issueid       int64  `json:"issueid"`
+    IssueName     string `json:"issueName"`
     UpdateTime    string `json:"updateTime"`
+    UserName      string `json:"userName"`
+    TagName       string `json:"tagName"`
+    MilestoneName string `json:"milestoneName"`
+}
+
+type MilestoneInfo {
+    Milestoneid int64  `json:"milestoneid"`
+    Name        string `json:"name"`
+    UpdateTime  string `json:"updateTime"`
 }
 
 type (
@@ -39,12 +44,13 @@ type (
 
 type (
     MilestoneSignalReq {
-        Milestoneid string `json:"milestoneid"`
+        Milestoneid int64 `json:"milestoneid"`
         ReName string `json:"reName"`
         IfDelete bool `json:"ifDelete"`
     }
-    
+
     MilestoneSignalResp {
+        Milestone MilestoneInfo `json:"milestone"`
         IssueList []IssueInfo `json:"issueList"`
     }
 )

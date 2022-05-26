@@ -37,9 +37,9 @@ type (
 type (
 	IssueNewReq {
 		Name          string `json:"name"`
-		Username      string `json:"username"`
-		Tagname       string `json:"tagname"`
-		Milestonename string `json:"milestonename"`
+		UserName      string `json:"userName"`
+		TagName       string `json:"tagName"`
+		MilestoneName string `json:"milestoneName"`
 	}
 
 	IssueNewResp {

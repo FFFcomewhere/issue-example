@@ -3,7 +3,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 # '1970-00-00 00:00:00'
 DROP TABLE IF EXISTS `user`;
 create table `user` (
-    `userid` bigint not null auto_increment,
+    `id` bigint not null auto_increment,
     `create_time` datetime not null default current_timestamp,
     `update_time` datetime not null default current_timestamp on update current_timestamp,
     `delete_time` datetime not null default '1970-01-01 08:00:00',
@@ -14,7 +14,7 @@ create table `user` (
     `username` varchar(255) character set utf8mb4 collate utf8mb4_general_ci  not null default '' comment '用户名',
     `password` varchar(255) character set utf8mb4 collate utf8mb4_general_ci  not null default '' comment '密码',
 
-    primary key (`userid`),
+    primary key (`id`),
     unique key `idx_mobile` (`mobile`),
     unique key `idx_username` (`username`)
 ) engine = InnoDB  default charset = utf8mb4 collate = utf8mb4_general_ci comment = '用户表';
@@ -23,3 +23,4 @@ create table `user` (
 insert into  `user` (mobile, username, password) value ('123456781', 'fzj', '5f4dcc3b5aa765d61d8327deb882cf99');
 insert into  `user` (mobile, username, password) value ('123456782','hyb', '5f4dcc3b5aa765d61d8327deb882cf99');
 insert into  `user` (mobile, username, password) value ('123456783','wsj', '5f4dcc3b5aa765d61d8327deb882cf99');
+insert into  `user` (mobile, username, password) value ('123456785','dh', '5f4dcc3b5aa765d61d8327deb882cf99');

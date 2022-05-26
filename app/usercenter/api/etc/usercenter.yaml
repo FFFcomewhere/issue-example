@@ -1,0 +1,25 @@
+Name: usercenter
+Host: 0.0.0.0
+Port: 42001
+Mode: dev
+
+
+UserRpc:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: user.rpc
+
+#jwtAuth
+JwtAuth:
+  AccessSecret: ae0536f9-6450-4606-8e13-5a19ed505da0
+
+Log:
+  ServiceName: usercenter-api
+  Level: error
+
+#rpc service
+UsercenterRpcConf:
+  Endpoints:
+    - 127.0.0.1:41001
+  NonBlock: true

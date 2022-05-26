@@ -1,21 +1,30 @@
 syntax = "v1"
 
 info(
-    title: "里程碑模块"
-    desc: "里程碑模块，负责容纳多个提案"
+    title: "标签模块"
+    desc: "标签模块，负责标记不同的issue"
     author: "方兆俊"
     data: "2022-05-25"
 )
 
+type IssueInfo {
+    Issueid       int64  `json:"issueid"`
+    IssueName     string `json:"issueName"`
+    UpdateTime    string `json:"updateTime"`
+    UserName      string `json:"userName"`
+    TagName       string `json:"tagName"`
+    MilestoneName string `json:"milestoneName"`
+}
+
 type TagInfo {
-    Tagid int64 `json:"Tagid"`
+    Tagid int64 `json:"tagid"`
     Name string `json:"name"`
 }
 
 type (
     TagReq {
-        LastTagid int64 `json:"lastTagid"` //上一页最后一个标签的id
-        PageSize int64 `json:"pageSize"`  //当前页面显示标签id数
+        Page int64 `json:"page"`	          //页码
+        PageSize int64 `json:"pageSize"`     //当前页面显示的tag数量
     }
 
     TagResp {
@@ -40,5 +49,7 @@ type (
     }
 
     TagSignalResp {
+        Tag TagInfo `json:"tag"`
+        IssueList []IssueInfo `json:"issueList"`
     }
 )
