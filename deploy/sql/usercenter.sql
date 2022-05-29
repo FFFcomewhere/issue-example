@@ -23,4 +23,4 @@ create table `user` (
 insert into  `user` (mobile, username, password) value ('123456781', 'fzj', '5f4dcc3b5aa765d61d8327deb882cf99');
 insert into  `user` (mobile, username, password) value ('123456782','hyb', '5f4dcc3b5aa765d61d8327deb882cf99');
 insert into  `user` (mobile, username, password) value ('123456783','wsj', '5f4dcc3b5aa765d61d8327deb882cf99');
-insert into  `user` (mobile, username, password) value ('123456785','dh', '5f4dcc3b5aa765d61d8327deb882cf99');
+insert into  `user` (mobile, username, password) value ('123456784','dh', '5f4dcc3b5aa765d61d8327deb882cf99');

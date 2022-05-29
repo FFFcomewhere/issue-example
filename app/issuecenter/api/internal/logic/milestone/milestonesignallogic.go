@@ -11,6 +11,8 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
+var ErrMilestoneNoExistsError = xerr.NewErrMsg("里程碑不存在")
+
 type MilestonesignalLogic struct {
 	logx.Logger
 	ctx    context.Context
@@ -80,9 +82,14 @@ func (l *MilestonesignalLogic) Milestonesignal(req *types.MilestoneSignalReq) (r
 func (l *MilestonesignalLogic) updataMilestone(req *types.MilestoneSignalReq) error {
 	milestone, err := l.svcCtx.MilestoneModel.FindOne(l.ctx, req.Milestoneid)
 	if err != nil && err != model.ErrNotFound {
-		return err
+		return errors.Wrapf(xerr.NewErrCode(xerr.DB_ERROR), "get milestone db err. rowType: %s ,err : %v", "moilestone", err)
 	}
 
+	if milestone == nil {
+		return errors.Wrapf(ErrMilestoneNoExistsError, "Milestoneid:%d", req.Milestoneid)
+	}
+
+	milestone.Name = req.ReName
 	l.svcCtx.MilestoneModel.Update(l.ctx, nil, milestone)
 	return nil
 }

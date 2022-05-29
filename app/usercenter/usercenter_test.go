@@ -50,8 +50,8 @@ func TestLogin(t *testing.T) {
 func TestGetUserInfo(t *testing.T) {
 	url := "http://127.0.0.1:42001/user/info"
 	contentType := "application/json"
-	//密钥，　经过登录或者注册可以获得，有过期时间，请自行登录后填写
-	authorization := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODUwMjUyMDQsImlhdCI6MTY1MzQ4OTIwNCwiand0VXNlcklkIjo0fQ.zh0eUzFL7GFm0OAXiL6xbCKq_d3vKxLhS_e2IcNrVpw"
+	//密钥，经过登录或者注册可以获得，有过期时间，请自行登录后填写,登录后返回的accessToken字段
+	authorization := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODUzNDMyMjMsImlhdCI6MTY1MzgwNzIyMywiand0VXNlcklkIjoxfQ.jLBw9U8CMfsxYIEdRINq-4NJ5SN7V3XTkibKtemvCfg"
 	jsonStr := []byte(`{"userid":1,
 						"mobile":"",
 						"username":""}`)

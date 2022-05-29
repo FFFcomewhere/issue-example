@@ -71,7 +71,7 @@ func TestShowSignalIssue(t *testing.T) {
 	contentType := "application/json"
 	jsonStr := []byte(`{
 						"issueid" : 1,
-						"reName" : "newissue1",
+						"reName" : "newissue12",
 						"reTag" : "",
 						"reMilestone" : "",
 						"ifDelete" : false,	
@@ -105,7 +105,7 @@ func TestNewMilestone(t *testing.T) {
 	url := "http://127.0.0.1:42002/milestone/new"
 	contentType := "application/json"
 	jsonStr := []byte(`{
-						"name":"milestone3"}`)
+						"name":"milestone5"}`)
 
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
 	req.Header.Add("Content-Type", contentType)
@@ -155,7 +155,7 @@ func TestGetMilestoneByPage(t *testing.T) {
 func TestShowSignalMilestone(t *testing.T) {
 	url := "http://127.0.0.1:42002/milestone/signal"
 	//密钥，　经过登录或者注册可以获得，有过期时间，请自行登录后填写
-	authorization := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODUwMjUyMDQsImlhdCI6MTY1MzQ4OTIwNCwiand0VXNlcklkIjo0fQ.zh0eUzFL7GFm0OAXiL6xbCKq_d3vKxLhS_e2IcNrVpw"
+	authorization := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODUzMzg1MDgsImlhdCI6MTY1MzgwMjUwOCwiand0VXNlcklkIjoxfQ.CC554DIhO_nJO4mJBSXDrs5QOaXjsMfSq6O7S5zUHP4"
 	contentType := "application/json"
 	jsonStr := []byte(`{
 						"milestoneid" : 1,
@@ -237,7 +237,7 @@ func TestGettagByPage(t *testing.T) {
 func TestShowSignaltag(t *testing.T) {
 	url := "http://127.0.0.1:42002/tag/signal"
 	//密钥，　经过登录或者注册可以获得，有过期时间，请自行登录后填写
-	authorization := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODUwMjUyMDQsImlhdCI6MTY1MzQ4OTIwNCwiand0VXNlcklkIjo0fQ.zh0eUzFL7GFm0OAXiL6xbCKq_d3vKxLhS_e2IcNrVpw"
+	authorization := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODUzMzg1MDgsImlhdCI6MTY1MzgwMjUwOCwiand0VXNlcklkIjoxfQ.CC554DIhO_nJO4mJBSXDrs5QOaXjsMfSq6O7S5zUHP4"
 	contentType := "application/json"
 	jsonStr := []byte(`{
 						"name" : "tag3",

@@ -13,6 +13,8 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
+var ErrTagNoExistsError = xerr.NewErrMsg("标签不存在")
+
 type TagsignalLogic struct {
 	logx.Logger
 	ctx    context.Context
@@ -86,10 +88,16 @@ func (l *TagsignalLogic) Tagsignal(req *types.TagSignalReq) (resp *types.TagSign
 func (l *TagsignalLogic) updataTag(req *types.TagSignalReq) error {
 	Tag, err := l.svcCtx.TagModel.FindOneByName(l.ctx, req.Name)
 	if err != nil && err != model.ErrNotFound {
-		return err
+		return errors.Wrapf(xerr.NewErrCode(xerr.DB_ERROR), "get issue db err. rowType: %s ,err : %v", "issueid", err)
 	}
 
+	if Tag == nil {
+		return errors.Wrapf(ErrTagNoExistsError, "tagName:%v", req.Name)
+	}
+
+	Tag.Name = req.ReName
 	l.svcCtx.TagModel.Update(l.ctx, nil, Tag)
+
 	return nil
 }
 

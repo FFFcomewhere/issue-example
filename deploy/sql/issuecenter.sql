@@ -19,13 +19,13 @@ create table `comment` (
     key `idx_issueid` (`issueid`)
 ) engine = InnoDB  default charset = utf8mb4 collate = utf8mb4_general_ci comment = '评论表';
 
-insert into  `comment` (issueid, userid, content) value (1, 1, 'comment1');
-insert into  `comment` (issueid, userid, content) value (1, 2, 'comment2');
-insert into  `comment` (issueid, userid, content) value (2, 1, 'comment3');
+insert into  `comment` (issueid, userid, content) value (1, 1, '我很快乐');
+insert into  `comment` (issueid, userid, content) value (1, 2, '我很难过');
+insert into  `comment` (issueid, userid, content) value (2, 1, '我很兴奋');
+insert into  `comment` (issueid, userid, content) value (3, 1, '这是个大问题');
+insert into  `comment` (issueid, userid, content) value (2, 3, '这是个小问题');
 
-select *
-from comment
-where `issueid` > 1;
+
 
 # issue
 drop table if exists `issue`;
@@ -47,19 +47,19 @@ create table `issue` (
     key `idx_milestone` (`milestoneid`)
 ) engine = InnoDB  default charset = utf8mb4 collate = utf8mb4_general_ci comment = '提案表';
 
-insert into  `issue` (name, userid) value ('issue1', 1);
-insert into  `issue` (name, userid) value ('issue2', 1);
-insert into  `issue` (name, userid) value ('issue3', 1);
-insert into  `issue` (name, userid) value ('issue4', 2);
-insert into  `issue` (name, userid) value ('issue5', 2);
-insert into  `issue` (name, userid) value ('issue6', 2);
-insert into  `issue` (name, userid) value ('issue7', 3);
-insert into  `issue` (name, userid) value ('issue8', 3);
-insert into  `issue` (name, userid) value ('issue9', 3);
-insert into  `issue` (name, userid) value ('issue10', 4);
-insert into  `issue` (name, userid) value ('issue11', 4);
-insert into  `issue` (name, userid) value ('issue12', 4);
-insert into  `issue` (name, userid) value ('issue13', 4);
+insert into  `issue` (name, userid, tagid, milestoneid) value ('issue1', 1, 1, 2);
+insert into  `issue` (name, userid, tagid, milestoneid) value ('issue2', 1, 2, 3);
+insert into  `issue` (name, userid, tagid, milestoneid) value ('issue3', 1, 2, 1);
+insert into  `issue` (name, userid, tagid, milestoneid) value ('issue4', 2, 3, 4);
+insert into  `issue` (name, userid, tagid, milestoneid) value ('issue5', 2, 1, 2);
+insert into  `issue` (name, userid, tagid, milestoneid) value ('issue6', 2, 4, 1);
+insert into  `issue` (name, userid, tagid, milestoneid) value ('issue7', 3, 1, 2);
+insert into  `issue` (name, userid, tagid, milestoneid) value ('issue8', 3, 1, 1);
+insert into  `issue` (name, userid, tagid, milestoneid) value ('issue9', 3, 2, 2);
+insert into  `issue` (name, userid, tagid, milestoneid) value ('issue10', 4, 1, 1);
+insert into  `issue` (name, userid, tagid, milestoneid) value ('issue11', 4, 2, 4);
+insert into  `issue` (name, userid, tagid, milestoneid) value ('issue12', 4, 4, 2);
+insert into  `issue` (name, userid, tagid, milestoneid) value ('issue13', 4, 1, 2);
 
 
 # milestone
@@ -79,6 +79,11 @@ create table `milestone` (
 ) engine = InnoDB  default charset = utf8mb4 collate = utf8mb4_general_ci comment = '里程碑表';
 
 insert into  `milestone` (name) value ('milestone1');
+insert into  `milestone` (name) value ('milestone２');
+insert into  `milestone` (name) value ('milestone３');
+insert into  `milestone` (name) value ('milestone4');
+
+
 
 drop table if exists `tag`;
 create table `tag` (
@@ -97,3 +102,5 @@ create table `tag` (
 
 insert into  `tag` (name) value ('bug');
 insert into `tag` (name) value ('ask');
+insert into `tag` (name) value ('hack');
+insert into `tag` (name) value ('over');
