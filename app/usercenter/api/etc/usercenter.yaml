@@ -6,7 +6,7 @@ Mode: dev
 UserRpc:
   Etcd:
     Hosts:
-      - 127.0.0.1:2379
+      - etcd:2379
     Key: user.rpc
 
 #jwtAuth

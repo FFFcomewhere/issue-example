@@ -6,7 +6,7 @@ Mode: dev
 UserRpc:
   Etcd:
     Hosts:
-      - 127.0.0.1:2379
+      - etcd:2379
     Key: user.rpc
 
 #jwtAuth
@@ -14,17 +14,16 @@ JwtAuth:
   AccessSecret: ae0536f9-6450-4606-8e13-5a19ed505da0
 
 DB:
-  DataSource: root:password@tcp(127.0.0.1:3306)/issue-example?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+  DataSource: root:password@tcp(mysql:3306)/issue-example?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
 Cache:
-  - Host: 127.0.0.1:6379
+  - Host: redis:6379
 
 Log:
   ServiceName: issuecenter-api
   Level: error
 
 
-
 #es
 ES:
   Host:
-    - http://127.0.0.1:9200
+    - http://elk-es:9200

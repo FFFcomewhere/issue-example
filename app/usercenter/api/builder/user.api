@@ -21,8 +21,8 @@ type (
 	}
 
 	RegisterResp {
-		AccessToken  string `json:"accessToken"`
-		AccessExpire int64  `json:"accessExpire"`
+		AccessToken  string `json:"accessToken"`    //令牌
+		AccessExpire int64  `json:"accessExpire"`   //令牌过期时间
 		RefreshAfter int64  `json:"refreshAfter"`
 	}
 )
@@ -34,8 +34,8 @@ type (
 	}
 
 	LoginResp {
-		AccessToken  string `json:"accessToken"`
-		AccessExpire int64  `json:"accessExpire"`
+		AccessToken  string `json:"accessToken"` 	//令牌
+		AccessExpire int64  `json:"accessExpire"` 	//令牌过期时间
 		RefreshAfter int64  `json:"refreshAfter"`
 	}
 )

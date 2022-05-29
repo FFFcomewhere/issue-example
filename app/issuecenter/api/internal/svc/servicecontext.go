@@ -26,7 +26,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	sqlConn := sqlx.NewMysql(c.DB.DataSource)
 
 	var tempES *es.Client
-	tempES, _ = es.NewClient(es.SetURL("http://127.0.0.1:9200"))
+	tempES, _ = es.NewClient(es.SetURL("http://elk-es:9200"))
 
 	return &ServiceContext{
 		Config: c,

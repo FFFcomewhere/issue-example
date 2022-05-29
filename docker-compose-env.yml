@@ -83,10 +83,10 @@ services:
 
 
 
-  etcd1:
-    container_name: etcd1
+  etcd:
+    container_name: etcd
     image:  quay.io/coreos/etcd
-    command: etcd -name etcd1 -advertise-client-urls http://0.0.0.0:2379 -listen-client-urls http://0.0.0.0:2379 -listen-peer-urls http://0.0.0.0:2380 -initial-cluster-token etcd-cluster -initial-cluster "etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380" -initial-cluster-state new
+    command: etcd -name etcd -advertise-client-urls http://etcd:2379 -listen-client-urls http://0.0.0.0:2379 -listen-peer-urls http://0.0.0.0:2380 -initial-cluster-token etcd-cluster -initial-cluster "etcd=http://etcd:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380" -initial-cluster-state new
     ports:
       - "${ETCD1_CLIENT_PORT}:2379"
       - "${ETCD1_PARTNER_PORT}:2380"
@@ -97,7 +97,7 @@ services:
   etcd2:
     container_name: etcd2
     image:  quay.io/coreos/etcd
-    command: etcd -name etcd2 -advertise-client-urls http://0.0.0.0:2379 -listen-client-urls http://0.0.0.0:2379 -listen-peer-urls http://0.0.0.0:2380 -initial-cluster-token etcd-cluster -initial-cluster "etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380" -initial-cluster-state new
+    command: etcd -name etcd2 -advertise-client-urls http://0.0.0.0:2379 -listen-client-urls http://0.0.0.0:2379 -listen-peer-urls http://0.0.0.0:2380 -initial-cluster-token etcd-cluster -initial-cluster "etcd=http://etcd:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380" -initial-cluster-state new
     ports:
       - "${ETCD2_CLIENT_PORT}:2379"
       - "${ETCD2_PARTNER_PORT}:2380"
@@ -107,7 +107,7 @@ services:
   etcd3:
     container_name: etcd3
     image:  quay.io/coreos/etcd
-    command: etcd -name etcd3 -advertise-client-urls http://0.0.0.0:2379 -listen-client-urls http://0.0.0.0:2379 -listen-peer-urls http://0.0.0.0:2380 -initial-cluster-token etcd-cluster -initial-cluster "etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380" -initial-cluster-state new
+    command: etcd -name etcd3 -advertise-client-urls http://0.0.0.0:2379 -listen-client-urls http://0.0.0.0:2379 -listen-peer-urls http://0.0.0.0:2380 -initial-cluster-token etcd-cluster -initial-cluster "etcd=http://etcd:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380" -initial-cluster-state new
     ports:
       - "${ETCD3_CLIENT_PORT}:2379"
       - "${ETCD3_PARTNER_PORT}:2380"
@@ -143,7 +143,7 @@ services:
     ports:
       - "${ETCD_MANAGE_PORT}:8080"                    # 设置容器8080端口映射指定宿主机端口，用于宿主机访问可视化web
     depends_on:                                       # 依赖容器
-      - etcd1                                        # 在 etcd 服务容器启动后启动
+      - etcd                                        # 在 etcd 服务容器启动后启动
     networks:
       - host
 
