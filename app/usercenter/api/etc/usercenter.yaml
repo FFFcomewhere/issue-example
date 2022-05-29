@@ -1,5 +1,5 @@
 Name: usercenter
-Host: 127.0.0.1
+Host: 0.0.0.0
 Port: 42001
 Mode: dev
 
@@ -17,8 +17,3 @@ Log:
   ServiceName: usercenter-api
   Level: error
 
-#rpc service
-UsercenterRpcConf:
-  Endpoints:
-    - 127.0.0.1:41001
-  NonBlock: true

@@ -34,14 +34,14 @@ services:
     networks:
       - host
 
-#
+
 #   etcd:
 #     container_name: etcd
 #     image: quay.io/coreos/etcd
 #     environment:
 #       - TZ=${TZ}
 #       - ALLOW_NONE_AUTHENTICATION=yes
-#       - ETCD_ADVERTISE_CLIENT_URLS=http://etcd:2379
+#       - ETCD_ADVERTISE_CLIENT_URLS=http://127.0.0.1:2379
 #     ports:                               # 设置端口映射
 #       - "2379:2379"
 #     networks:
@@ -143,7 +143,7 @@ services:
     ports:
       - "${ETCD_MANAGE_PORT}:8080"                    # 设置容器8080端口映射指定宿主机端口，用于宿主机访问可视化web
     depends_on:                                       # 依赖容器
-      - etcd1                                         # 在 etcd 服务容器启动后启动
+      - etcd1                                        # 在 etcd 服务容器启动后启动
     networks:
       - host
 

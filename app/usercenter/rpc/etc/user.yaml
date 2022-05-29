@@ -1,10 +1,10 @@
 Name: user.rpc
-ListenOn: 127.0.0.1:41001
+ListenOn: 0.0.0.0:41001
 Mode: dev
 
 Etcd:
   Hosts:
-  - 127.0.0.1:2379
+    - 127.0.0.1:2379
   Key: user.rpc
 
 Log:
