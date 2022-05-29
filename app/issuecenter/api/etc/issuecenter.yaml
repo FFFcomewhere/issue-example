@@ -22,8 +22,13 @@ Log:
   ServiceName: issuecenter-api
   Level: error
 
-#rpc service
-UsercenterRpcConf:
-  Endpoints:
-    - 127.0.0.1:41001
-  NonBlock: true
+##rpc service
+#UsercenterRpcConf:
+#  Endpoints:
+#    - 127.0.0.1:41001
+#  NonBlock: true
+
+#es
+ES:
+  Host:
+    - http://127.0.0.1:9200

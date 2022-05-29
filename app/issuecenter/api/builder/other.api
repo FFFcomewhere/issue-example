@@ -1,0 +1,49 @@
+syntax = "v1"
+
+info(
+	title: "其他新需求"
+	desc: ""
+	author: "方兆俊"
+	data: "2022-05-2６"
+)
+
+type IssueInfo {
+	Issueid       int64  `json:"issueid"`
+	IssueName     string `json:"issueName"`
+	UpdateTime    string `json:"updateTime"`
+	UserName      string `json:"userName"`
+	TagName       string `json:"tagName"`
+	MilestoneName string `json:"milestoneName"`
+}
+
+type IssueStateInfo {
+	Issueid        int64 `json:"issueid"`
+	AddTagid       int64 `json:"addTagid"`
+	DeleteTagid    int64 `json:"deleteTagid"`
+	AddCommentid   int64 `json:"addCommentid"`
+	DeleteComentid int64 `json:"deleteComentid"`
+}
+
+type (
+	IssueStatePushReq {
+		IfSubscription bool `json:"ifSubscription"`
+	}
+
+	IssueStatePushResp {
+		IssueState IssueStateInfo `json:"issueState"`
+	}
+)
+
+
+//提供搜索功能　根据issue的标题，tag,comment放回issue
+type (
+	IssueSearchReq {
+		Keyword string `json:"keyword"` //搜索的关键词
+	}
+	IssueSearchResp {
+		List []IssueInfo `json:"list"`  //返回的issue列表
+	}
+)
+
+
+

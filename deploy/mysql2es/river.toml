@@ -1,0 +1,56 @@
+# MySQL 的相关配置
+# 指定用户必须具备复制权限
+my_addr = "mysql:3306"
+my_user = "root"
+my_pass = "password"
+my_charset = "utf8mb4"# ES 相关配置
+es_addr = "elk-es:9200"
+es_user = ""
+es_pass = ""# 数据源配置
+
+stat_path = "/metrics"
+
+# 以 Slave 模式工作
+server_id = 10001
+# mysql/mariadb
+flavor = "mysql"# mysqldump 路径，如果为空或者未设置，会跳过这一环节。
+mysqldump = "mysqldump"
+bulk_size = 128
+flush_bulk_time = "200ms"
+skip_no_pk_table = false
+[[source]]
+# 数据库名称
+schema = "issue-example"
+# 数据表同步范围，支持通配符
+tables = ["issue", "comment", "tag"]# 规则定义
+
+[[rule]]
+# 数据库名称
+schema = "issue-example"
+# 规则对应的数据表，支持通配符
+table = "issue"
+# 目标 ES 索引
+index = "issue"
+# 该规则在 ES 中生成的文档类型
+type = "_doc"
+
+[[rule]]
+# 数据库名称
+schema = "issue-example"
+# 规则对应的数据表，支持通配符
+table = "comment"
+# 目标 ES 索引
+index = "comment"
+# 该规则在 ES 中生成的文档类型
+type = "_doc"
+
+
+[[rule]]
+# 数据库名称
+schema = "issue-example"
+# 规则对应的数据表，支持通配符
+table = "tag"
+# 目标 ES 索引
+index = "tag"
+# 该规则在 ES 中生成的文档类型
+type = "_doc"

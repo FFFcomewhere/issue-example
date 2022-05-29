@@ -1,0 +1,41 @@
+version: "3.5"
+
+# 网络配置
+networks:
+  host:
+
+services:
+  usercenter-rpc:
+    container_name: usercenter-rpc
+    hostname: 127.0.0.1
+    build:
+        context: .
+        dockerfile: app/usercenter/rpc/Dockerfile
+    ports:
+      - "41001:41001"
+    networks:
+      - host
+
+
+  usercenter-api:
+    container_name: usercenter-api
+    hostname: 127.0.0.1
+    build:
+        context: .
+        dockerfile: app/usercenter/api/Dockerfile
+    ports:
+      - "42001:42001"
+    networks:
+      - host
+
+
+  issuecenter-api:
+    container_name: issuecenter-api
+    hostname: 127.0.0.1
+    build:
+        context: .
+        dockerfile: app/issuecenter/api/Dockerfile
+    ports:
+      - "42002:42002"
+    networks:
+      - host

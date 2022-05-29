@@ -1,8 +1,7 @@
 Name: usercenter
-Host: 0.0.0.0
+Host: 127.0.0.1
 Port: 42001
 Mode: dev
-
 
 UserRpc:
   Etcd:

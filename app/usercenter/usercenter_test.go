@@ -31,7 +31,7 @@ func TestRegister(t *testing.T) {
 func TestLogin(t *testing.T) {
 	url := "http://127.0.0.1:42001/user/login"
 	contentType := "application/json"
-	jsonStr := []byte(`{"username":"zkj", "password":"password"}`)
+	jsonStr := []byte(`{"username":"fzj", "password":"password"}`)
 
 	resp, err := http.Post(url, contentType, bytes.NewBuffer(jsonStr))
 	defer resp.Body.Close()

@@ -1,0 +1,199 @@
+version: "3.5"
+
+# 网络配置
+networks:
+  host:
+
+services:
+  mysql:
+    container_name: mysql
+    hostname: 127.0.0.1
+    image: mysql:5.7
+    environment:
+      - TZ=${TZ}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}   # 设置 Mysql root 用户密码
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+    volumes:
+      - ${DATA_PATH_HOST}/mysql1:/var/lib/mysql        # 引用 .env 配置中 DATA_PATH_HOST 变量，将宿主机上存放 Mysql 数据的目录挂载到容器中 /var/lib/mysql 目录
+    ports:
+      - "${MYSQL_PORT}:3306"
+    networks:
+      - host
+  redis:
+    container_name: redis
+    hostname: 127.0.0.1
+    image: redis
+    environment:
+      - TZ=${TZ}
+    volumes:
+      - ${DATA_PATH_HOST}/redis:/data                 # 引用 .env 配置中 DATA_PATH_HOST 变量，将宿主机上存放 Redis 数据的目录挂载到容器中 /data 目录
+    ports:
+      - "${REDIS_PORT}:6379"
+    #     command:
+    #       --requirepass ${REDIS_PASSWORD}                   #设置redis 密码
+    networks:
+      - host
+
+#
+#   etcd:
+#     container_name: etcd
+#     image: quay.io/coreos/etcd
+#     environment:
+#       - TZ=${TZ}
+#       - ALLOW_NONE_AUTHENTICATION=yes
+#       - ETCD_ADVERTISE_CLIENT_URLS=http://etcd:2379
+#     ports:                               # 设置端口映射
+#       - "2379:2379"
+#     networks:
+#       - host
+
+
+#   etcd:
+#     container_name: etcd
+#     image:  quay.io/coreos/etcd
+#     command: etcd -name etcd -advertise-client-urls http://etcd:2379 -listen-client-urls http://0.0.0.0:2379 -listen-peer-urls http://0.0.0.0:2380 -initial-cluster-token etcd-cluster -initial-cluster "etcd=http://etcd:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380" -initial-cluster-state new
+#     ports:
+#       - "${ETCD1_CLIENT_PORT}:2379"
+#       - "${ETCD1_PARTNER_PORT}:2380"
+#     networks:
+#       - host
+#
+#
+#   etcd2:
+#     container_name: etcd2
+#     image:  quay.io/coreos/etcd
+#     command: etcd -name etcd2 -advertise-client-urls http://0.0.0.0:2379 -listen-client-urls http://0.0.0.0:2379 -listen-peer-urls http://0.0.0.0:2380 -initial-cluster-token etcd-cluster -initial-cluster "etcd=http://etcd:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380" -initial-cluster-state new
+#     ports:
+#       - "${ETCD2_CLIENT_PORT}:2379"
+#       - "${ETCD2_PARTNER_PORT}:2380"
+#     networks:
+#       - host
+#
+#   etcd3:
+#     container_name: etcd3
+#     image:  quay.io/coreos/etcd
+#     command: etcd -name etcd3 -advertise-client-urls http://0.0.0.0:2379 -listen-client-urls http://0.0.0.0:2379 -listen-peer-urls http://0.0.0.0:2380 -initial-cluster-token etcd-cluster -initial-cluster "etcd=http://etcd:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380" -initial-cluster-state new
+#     ports:
+#       - "${ETCD3_CLIENT_PORT}:2379"
+#       - "${ETCD3_PARTNER_PORT}:2380"
+#     networks:
+#       - host
+
+
+
+
+
+  etcd1:
+    container_name: etcd1
+    image:  quay.io/coreos/etcd
+    command: etcd -name etcd1 -advertise-client-urls http://0.0.0.0:2379 -listen-client-urls http://0.0.0.0:2379 -listen-peer-urls http://0.0.0.0:2380 -initial-cluster-token etcd-cluster -initial-cluster "etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380" -initial-cluster-state new
+    ports:
+      - "${ETCD1_CLIENT_PORT}:2379"
+      - "${ETCD1_PARTNER_PORT}:2380"
+    networks:
+      - host
+
+
+  etcd2:
+    container_name: etcd2
+    image:  quay.io/coreos/etcd
+    command: etcd -name etcd2 -advertise-client-urls http://0.0.0.0:2379 -listen-client-urls http://0.0.0.0:2379 -listen-peer-urls http://0.0.0.0:2380 -initial-cluster-token etcd-cluster -initial-cluster "etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380" -initial-cluster-state new
+    ports:
+      - "${ETCD2_CLIENT_PORT}:2379"
+      - "${ETCD2_PARTNER_PORT}:2380"
+    networks:
+      - host
+
+  etcd3:
+    container_name: etcd3
+    image:  quay.io/coreos/etcd
+    command: etcd -name etcd3 -advertise-client-urls http://0.0.0.0:2379 -listen-client-urls http://0.0.0.0:2379 -listen-peer-urls http://0.0.0.0:2380 -initial-cluster-token etcd-cluster -initial-cluster "etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380" -initial-cluster-state new
+    ports:
+      - "${ETCD3_CLIENT_PORT}:2379"
+      - "${ETCD3_PARTNER_PORT}:2380"
+    networks:
+      - host
+
+
+  mysql-manage:
+    container_name: mysql-manage
+    hostname: 127.0.0.1
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - TZ=${TZ}
+      - PMA_ARBITRARY=1
+      - MYSQL_USER=${MYSQL_MANAGE_USERNAME}               # 设置连接的 Mysql 服务用户名称
+      - MYSQL_PASSWORD=${MYSQL_MANAGE_PASSWORD}           # 设置连接的 Mysql 服务用户密码
+      - MYSQL_ROOT_PASSWORD=${MYSQL_MANAGE_ROOT_PASSWORD} # 设置连接的 Mysql 服务 root 用户密码
+      - PMA_HOST=${MYSQL_MANAGE_CONNECT_HOST}             # 设置连接的 Mysql 服务 host，可以是 Mysql 服务容器的名称，也可以是 Mysql 服务容器的 ip 地址
+      - PMA_PORT=${MYSQL_MANAGE_CONNECT_PORT}             # 设置连接的 Mysql 服务端口号
+    ports:
+      - "${MYSQL_MANAGE_PORT}:80"                         # 设置容器80端口映射指定宿主机端口，用于宿主机访问可视化web
+    depends_on:                                           # 依赖容器
+      - mysql                                             # 在 Mysql 服务容器启动后启动
+    networks:
+      - host
+
+  etcd-manage:
+    container_name: etcd-manage
+    hostname: 127.0.0.1
+    image: deltaprojects/etcdkeeper
+    environment:
+      - TZ=${TZ}
+    ports:
+      - "${ETCD_MANAGE_PORT}:8080"                    # 设置容器8080端口映射指定宿主机端口，用于宿主机访问可视化web
+    depends_on:                                       # 依赖容器
+      - etcd1                                         # 在 etcd 服务容器启动后启动
+    networks:
+      - host
+
+
+  elasticsearch:
+    container_name: elk-es
+    hostname: 127.0.0.1
+    image: elasticsearch:7.6.0
+    environment:
+      # 开启内存锁定
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      # 指定单节点启动
+      - discovery.type=single-node
+    ulimits:
+      # 取消内存相关限制  用于开启内存锁定
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ${DATA_PATH_HOST}/es/data:/usr/share/elasticsearch/data
+      - ${DATA_PATH_HOST}/es/logs:/usr/share/elasticsearch/logs
+      - ${DATA_PATH_HOST}/es/plugins:/usr/share/elasticsearch/plugins
+    ports:
+      - 9100:9100
+      - 9200:9200
+    networks:
+      - host
+
+
+  kibana:
+    container_name: elk-kibana
+    hostname: 127.0.0.1
+    image: kibana:7.6.0
+    environment:
+      ELASTICSEARCH_HOSTS: http://elk-es:9200
+      I18N_LOCALE: zh-CN
+    ports:
+      - 5601:5601
+    networks:
+      - host
+
+
+  go-mysql-elasticsearch:
+    container_name: mysql2es
+    hostname: 127.0.0.1
+    image: gozer/go-mysql-elasticsearch
+    ports:
+      - 12800:12800
+    volumes:
+      - ./deploy/mysql2es/river.toml:/config/river.toml
+    networks:
+      - host

@@ -117,3 +117,27 @@ type TagSignalResp struct {
 	Tag       TagInfo     `json:"tag"`
 	IssueList []IssueInfo `json:"issueList"`
 }
+
+type IssueStateInfo struct {
+	Issueid        int64 `json:"issueid"`
+	AddTagid       int64 `json:"addTagid"`
+	DeleteTagid    int64 `json:"deleteTagid"`
+	AddCommentid   int64 `json:"addCommentid"`
+	DeleteComentid int64 `json:"deleteComentid"`
+}
+
+type IssueStatePushReq struct {
+	IfSubscription bool `json:"ifSubscription"`
+}
+
+type IssueStatePushResp struct {
+	IssueState IssueStateInfo `json:"issueState"`
+}
+
+type IssueSearchReq struct {
+	Keyword string `json:"keyword"` //搜索的关键词
+}
+
+type IssueSearchResp struct {
+	List []IssueInfo `json:"list"` //返回的issue列表
+}

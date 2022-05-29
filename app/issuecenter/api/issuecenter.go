@@ -3,11 +3,9 @@ package main
 import (
 	"flag"
 	"fmt"
-
 	"github.com/FFFcomewhere/issue-example/app/issuecenter/api/internal/config"
 	"github.com/FFFcomewhere/issue-example/app/issuecenter/api/internal/handler"
 	"github.com/FFFcomewhere/issue-example/app/issuecenter/api/internal/svc"
-
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/rest"
 )
@@ -22,6 +20,7 @@ func main() {
 
 	ctx := svc.NewServiceContext(c)
 	server := rest.MustNewServer(c.RestConf)
+
 	defer server.Stop()
 
 	handler.RegisterHandlers(server, ctx)

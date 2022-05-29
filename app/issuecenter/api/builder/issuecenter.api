@@ -11,6 +11,7 @@ import (
 	"issue.api"
 	"milestone.api"
 	"tag.api"
+	"other.api"
 )
 
 //无需登录
@@ -86,4 +87,18 @@ service issuecenter {
 	@doc "操作单个标签/按标签显示提案"
 	@handler tagsignal
 	post /tag/signal (TagSignalReq) returns (TagSignalResp)
+}
+
+@server(
+	group: other
+	jwt: JwtAuth
+)
+service issuecenter {
+	//	@doc "推送issue的状态变化"
+	//	@handler issuestatepush
+	//	post /issuestate (IssueStatePushReq) returns (IssueStatePushResp)
+	
+	@doc "根据关键词搜索issue　包括issue标题, tag, comment　"
+	@handler issuesearch
+	post /issue/search (IssueSearchReq) returns (IssueSearchResp)
 }

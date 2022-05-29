@@ -6,6 +6,7 @@ import (
 
 	issue "github.com/FFFcomewhere/issue-example/app/issuecenter/api/internal/handler/issue"
 	milestone "github.com/FFFcomewhere/issue-example/app/issuecenter/api/internal/handler/milestone"
+	other "github.com/FFFcomewhere/issue-example/app/issuecenter/api/internal/handler/other"
 	tag "github.com/FFFcomewhere/issue-example/app/issuecenter/api/internal/handler/tag"
 	"github.com/FFFcomewhere/issue-example/app/issuecenter/api/internal/svc"
 
@@ -86,6 +87,17 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Method:  http.MethodPost,
 				Path:    "/tag/signal",
 				Handler: tag.TagsignalHandler(serverCtx),
+			},
+		},
+		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/issue/search",
+				Handler: other.IssuesearchHandler(serverCtx),
 			},
 		},
 		rest.WithJwt(serverCtx.Config.JwtAuth.AccessSecret),
