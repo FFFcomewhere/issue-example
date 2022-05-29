@@ -35,6 +35,7 @@ func (l *IssuenewLogic) Issuenew(req *types.IssueNewReq) (resp *types.IssueNewRe
 		issue := new(model.Issue)
 		issue.Name = req.Name
 
+		//依次判断字段是否需要赋值
 		if req.UserName != "" {
 			userRpcReq := builder.GetUserInfoReq{
 				Userid:   0,

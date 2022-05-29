@@ -51,7 +51,7 @@ func (l *MilestonesignalLogic) Milestonesignal(req *types.MilestoneSignalReq) (r
 		return nil, errors.Wrapf(xerr.NewErrCode(xerr.DB_ERROR), "get milestone db err. rowType: %s ,err : %v", "", err)
 	}
 	milestoneinfo, err := l.NewMilestoneInfo(milestone, req)
-
+	//根据milestone查找对于的issue
 	whereBuilde := l.svcCtx.IssueModel.RowBuilder()
 	issueList, err := l.svcCtx.IssueModel.FindListByMilestoneid(l.ctx, whereBuilde, req.Milestoneid, "id DESC")
 	if err != nil && err != model.ErrNotFound {
